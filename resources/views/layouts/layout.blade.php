@@ -22,11 +22,11 @@
         integrity="sha512-zMm7+ZQ8AZr1r3W8Z8lDATkH05QG5Gm2xc6MlsCdBz9l6oE8Y7IXByMgSm/rdRQrhuHt99HAYfMljBOEZ68q5A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <main class="flex flex-col h-screen">
-        @if (!in_array(Route::currentRouteName(), ['admin.login']))
+        @if (!in_array(Route::currentRouteName(), ['admin.login', 'welcome']))
             @include('layouts.components.navbar.navbar')
         @endif
         <div class="flex h-full">
-            @if (!in_array(Route::currentRouteName(), ['admin.login']))
+            @if (!in_array(Route::currentRouteName(), ['admin.login', 'welcome']))
                 @include('layouts.components.sidebar.sidebar')
             @endif
             @yield('content')

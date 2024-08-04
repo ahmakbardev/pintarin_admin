@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,7 @@ class AdminController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('admin')->attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
             return redirect()->route('pengumuman');
         }
 
@@ -32,7 +33,8 @@ class AdminController extends Controller
 
     public function logout()
     {
-        Auth::guard('admin')->logout();
-        return redirect()->route('admin.login');
+        Auth::logout();
+        // Session::flush(); // Menghapus semua data sesi
+        return redirect()->route('admin.login')->with('success', 'Logged out successfully!');
     }
 }

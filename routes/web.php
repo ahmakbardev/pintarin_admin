@@ -19,15 +19,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('admin')->group(function () {
+// Route::middleware('guest')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.login');
+    })->name('welcome');
     Route::get('/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminController::class, 'login']);
     Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
-
-    Route::middleware('auth:admin')->group(function () {
+// });
+Route::prefix('admin')->group(function () {
+    Route::middleware('auth')->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
+
 
         Route::get('pengumuman', function () {
             return view('pengumuman.create');
@@ -45,9 +50,9 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+// Route::get('/', function () {
+//     return view('index');
+// })->name('home');
 
 // Route::get('login', function () {
 //     return view('auth.login');
